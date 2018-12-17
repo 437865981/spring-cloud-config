@@ -1,7 +1,7 @@
 #加密配置
 jasypt:
   encryptor:
-    password: lengleng
+    password: fx
 
 server:
   tomcat:
@@ -30,8 +30,8 @@ redis:
 
 ribbon:
   eager-load:
-    enabled: true
-    clients: pig-auth,pig-upms-service
+    enabled: true  #饥饿模式，解决ribbon客户端在调用的时候第一次慢导致超时的问题（在首次调用才初始化）
+    clients: auth-server,upms-service
   Httpclient:
     enabled: false
   OkHttp:
@@ -43,15 +43,15 @@ feign:
   hystrix:
     enabled: true
   okhttp:
-    enabled: true
+    enabled: true  ##ribbon use okhttp instead of httpclient
   httpclient:
     enabled: false
-  client:
+  client:  #定制@FeignClient
     config:
       feignName:
         connectTimeout: 30000
         readTimeout: 30000
-  compression:
+  compression:  #开启压缩可以有效节约网络资源，但是会增加CPU压力
     request:
       enabled: true
     response:
@@ -70,7 +70,7 @@ hystrix:
           thread:
             timeoutInMilliseconds: 60000
 
-#监控短点配置
+#监控短点配置 在1.5.x版本中通过management.security.enabled=false来暴露所有端点
 management:
   security:
     enabled: false
