@@ -35,5 +35,6 @@ ignore:
     - /metrics/**
     - /loggers/**
     - /mobile/token
+    - /sysDept/*
 
 
